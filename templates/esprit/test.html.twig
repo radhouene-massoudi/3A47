@@ -1,0 +1,27 @@
+{{klass}}
+{% set x='0' %}
+<table border='2'>
+<tr>
+<td> ref</td>
+<td> title</td>
+<td> Action</td>
+</tr>
+{% for t in f  if t.nb_participants >0%}
+{% if t.nb_participants >0%}
+<tr>
+<td>
+{{t.ref}}</td>
+<td>
+ {{t.Titre |lower}}</td>
+{% set x=t.ref %}
+
+<td>
+<a href="{{path('rest',{'idt':t.ref})}}">detail</a></td>
+<td>
+</tr>
+{% endif %}
+{% endfor %}
+
+</table>
+la valeur de  egale {{x}}
+ length {{f |length}}
