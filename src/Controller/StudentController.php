@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Form\StType;
+use App\Form\UpdateyassineType;
 use App\Repository\StudentRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-
+#[Route('/student')]
 class StudentController extends AbstractController
 {
     #[Route('/st', name: 'app_student')]
@@ -51,5 +54,38 @@ class StudentController extends AbstractController
        
         
         return  $this->redirectToRoute('students');
+    }
+
+    #[Route('/addStudent', name: 'add')]
+    public function addStudent(ManagerRegistry $mg,Request $req): Response
+    {
+        $st1=new Student();
+        $form=$this->createForm(StType::class,$st1);
+        $form->handleRequest($req);
+if($form->isSubmitted()){
+      $em= $mg->getManager();
+      $em->persist($st1);
+      $em->flush();
+      return $this->redirectToRoute('second');
+    }
+        return  $this->render('student/addst.html.twig', [
+            'f'=>$form->createView()
+        ]);
+    }
+
+
+    #[Route('/update/{id}', name: 'update')]
+    public function updateStudent(ManagerRegistry $mg,Request $req,$id,StudentRepository $repo): Response
+    {
+        $st1=$repo->find($id);
+        $form=$this->createForm(UpdateyassineType::class,$st1);
+        $form->handleRequest($req);
+if($form->isSubmitted()){
+      $repo->add($st1,true);
+      return $this->redirectToRoute('second');
+    }
+        return  $this->render('student/addst.html.twig', [
+            'f'=>$form->createView()
+        ]);
     }
 }

@@ -9,9 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 class Student
 {
     #[ORM\Id]
-    #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $id = null;
+    private ?int $ref = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
@@ -19,9 +18,15 @@ class Student
     #[ORM\Column(length: 255)]
     private ?string $surname = null;
 
-    public function getId(): ?int
+    public function getref(): ?int
     {
-        return $this->id;
+        return $this->ref;
+    }
+    public function setref(string $ref): self
+    {
+        $this->ref = $ref;
+
+        return $this;
     }
 
     public function getName(): ?string

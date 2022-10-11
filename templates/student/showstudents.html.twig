@@ -12,10 +12,13 @@
 </tr>
 {% for i in students %}
 <tr>
-<td>{{i.id}}</td>
+<td>{{i.ref}}</td>
 <td>{{i.name}}</td>
 <td> {{i.surname}}</td>
-<td> <a href="{{path('remove',{id:i.id})}}">remove</a></td>
+<td> <a href="{{path('remove',{id:i.ref})}}">remove</a>
+<a href="{{path('update',{id:i.ref})}}">update</a>
+
+</td>
 </tr>
 {% endfor %}
 </table>
