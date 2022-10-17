@@ -18,6 +18,12 @@ class Student
     #[ORM\Column(length: 255)]
     private ?string $surname = null;
 
+    #[ORM\ManyToOne(inversedBy: 'student')]
+    private ?Classroom $classroom = null;
+
+    #[ORM\ManyToOne(inversedBy: 'st')]
+    private ?Grade $gt = null;
+
     public function getref(): ?int
     {
         return $this->ref;
@@ -49,6 +55,30 @@ class Student
     public function setSurname(string $surname): self
     {
         $this->surname = $surname;
+
+        return $this;
+    }
+
+    public function getClassroom(): ?Classroom
+    {
+        return $this->classroom;
+    }
+
+    public function setClassroom(?Classroom $classroom): self
+    {
+        $this->classroom = $classroom;
+
+        return $this;
+    }
+
+    public function getGt(): ?Grade
+    {
+        return $this->gt;
+    }
+
+    public function setGt(?Grade $gt): self
+    {
+        $this->gt = $gt;
 
         return $this;
     }
