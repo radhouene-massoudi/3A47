@@ -63,4 +63,18 @@ class StudentRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+
+public function myfindAll($klass)
+   {
+       $req=$this->createQueryBuilder('s')
+       ->select('count(s)')
+       ->join('s.classroom','c')
+       ->addSelect('c.name')
+       ->where('c.name=:t')
+       ->setParameter('t',$klass);
+       $query=$req->getQuery();
+       $result=$query->getResult();
+       return $result;
+   }
 }

@@ -63,4 +63,14 @@ class StudentclsRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+public function fetchStudentByClass($klass){
+ $em=$this->getEntityManager();
+ $req=$em->createQuery("select s.ref,c.name from App\Entity\Student s join s.classroom c where c.name=:t");
+ $req->setParameter('t',$klass);
+ $resultt=$req->getResult();
+ return $resultt;
+
+}
+    
 }
